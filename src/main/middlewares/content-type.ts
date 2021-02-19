@@ -6,6 +6,5 @@ export const contentType = (
   next: NextFunction
 ): void => {
   res.type('json')
-  // res.type("application/json");
   next()
 }
