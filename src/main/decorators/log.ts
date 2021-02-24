@@ -1,4 +1,4 @@
-import { LogErrorRepository } from '../../data/use-cases/add-account/protocols/log-error-repository'
+import { LogErrorRepository } from '../../data/protocols/log-error-repository'
 import {
   Controller,
   HttpRequest,
