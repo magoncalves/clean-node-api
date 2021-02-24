@@ -1,6 +1,6 @@
 import { AccountModel } from '../../../domain/models/account'
 import { AuthenticationModel } from '../../../domain/use-cases/authentication'
-import { LoadAccountByEmailRepository } from '../../protocols/load-account-by-email-repository'
+import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository'
 import { DbAuthentication } from './db-authentication'
 
 interface SutTypes {
@@ -57,5 +57,15 @@ describe('DbAuthentication UseCase', () => {
     const authPromise = sut.auth(makeFakeAuthentication())
 
     await expect(authPromise).rejects.toThrow()
+  })
+
+  it('should return null if LoadAccountByEmailRepository returns null', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadAccountByEmailRepositoryStub, 'load')
+      .mockResolvedValueOnce(null)
+    const accessToken = await sut.auth(makeFakeAuthentication())
+
+    await expect(accessToken).toBeNull()
   })
 })
