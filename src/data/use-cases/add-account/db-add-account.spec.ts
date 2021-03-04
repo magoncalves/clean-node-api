@@ -24,7 +24,7 @@ const makeHasher = (): Hasher => {
 
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountModel): Promise<AccountModel | null> {
       return await new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -32,7 +32,7 @@ const makeAddAccountRepository = (): AddAccountRepository => {
   return new AddAccountRepositoryStub()
 }
 
-const makeFakeAccount = (): AccountModel => ({
+const makeFakeAccount = (): AccountModel | null => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@email.com',
