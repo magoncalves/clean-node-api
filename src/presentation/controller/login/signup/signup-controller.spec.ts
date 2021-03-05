@@ -1,4 +1,8 @@
-import { EmailInUseError, MissingParamError, ServerError } from '../../errors'
+import {
+  EmailInUseError,
+  MissingParamError,
+  ServerError
+} from '../../../errors'
 import {
   AddAccount,
   AddAccountModel,
@@ -6,13 +10,13 @@ import {
   Validation
 } from './signup-controller-protocols'
 import { SignUpController } from './signup-controller'
-import { HttpRequest } from '../../protocols'
+import { HttpRequest } from '../../../protocols'
 import {
   badRequest,
   forbidden,
   ok,
   serverError
-} from '../../helpers/http/http-helper'
+} from '../../../helpers/http/http-helper'
 import {
   Authentication,
   AuthenticationModel
