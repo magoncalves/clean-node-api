@@ -97,14 +97,11 @@ describe('DbLoadAccountByToken Usecase', () => {
     expect(account).toBeNull()
   })
 
-  it('should return null if LoadAccountByTokenRepository returns null', async () => {
-    const { sut, loadAccountByTokenRepositoryStub } = makeSut()
-    jest
-      .spyOn(loadAccountByTokenRepositoryStub, 'loadByToken')
-      .mockResolvedValueOnce(null)
+  it('should return an account on success', async () => {
+    const { sut } = makeSut()
 
     const account = await sut.load('any_token', 'any_role')
 
-    expect(account).toBeNull()
+    expect(account).toEqual(makeFakeAccount())
   })
 })
