@@ -27,24 +27,6 @@ describe('Survey Routes', () => {
   })
 
   describe('POST /survey', () => {
-    it('should return 403 on add survey without access token', async () => {
-      await request(app)
-        .post('/api/survey')
-        .send({
-          question: 'Question',
-          answers: [
-            {
-              image: 'https://image-name.com',
-              answer: 'Answer 1'
-            },
-            {
-              answer: 'Answer 2'
-            }
-          ]
-        })
-        .expect(403)
-    })
-
     it('should return 204 on add survey with valid access token and role', async () => {
       const password = await hash('123', 12)
       const res = await accountCollection.insertOne({
@@ -85,30 +67,9 @@ describe('Survey Routes', () => {
         .expect(204)
     })
 
-    it('should return 403 on add survey with valid access token and invalid role', async () => {
-      const password = await hash('123', 12)
-      const res = await accountCollection.insertOne({
-        name: 'Murillo',
-        email: 'murillogoncalves@gmail.com',
-        password
-      })
-
-      const id = res.ops[0]._id
-      const accessToken = sign({ id }, env.jwtSecret)
-      await accountCollection.updateOne(
-        {
-          _id: id
-        },
-        {
-          $set: {
-            accessToken
-          }
-        }
-      )
-
+    it('should return 403 on add survey without access token', async () => {
       await request(app)
         .post('/api/survey')
-        .set('x-access-token', accessToken)
         .send({
           question: 'Question',
           answers: [
@@ -123,5 +84,71 @@ describe('Survey Routes', () => {
         })
         .expect(403)
     })
+
+    it('should return 403 on add survey with invalid access token', async () => {
+      const password = await hash('123', 12)
+      await accountCollection.insertOne({
+        name: 'Murillo',
+        email: 'murillogoncalves@gmail.com',
+        password,
+        role: 'admin',
+        accessToken: 'invalid_access_token'
+      })
+
+      await request(app)
+        .post('/api/survey')
+        .send({
+          question: 'Question',
+          answers: [
+            {
+              image: 'https://image-name.com',
+              answer: 'Answer 1'
+            },
+            {
+              answer: 'Answer 2'
+            }
+          ]
+        })
+        .expect(403)
+    })
+  })
+
+  it('should return 403 on add survey with valid access token and invalid role', async () => {
+    const password = await hash('123', 12)
+    const res = await accountCollection.insertOne({
+      name: 'Murillo',
+      email: 'murillogoncalves@gmail.com',
+      password
+    })
+
+    const id = res.ops[0]._id
+    const accessToken = sign({ id }, env.jwtSecret)
+    await accountCollection.updateOne(
+      {
+        _id: id
+      },
+      {
+        $set: {
+          accessToken
+        }
+      }
+    )
+
+    await request(app)
+      .post('/api/survey')
+      .set('x-access-token', accessToken)
+      .send({
+        question: 'Question',
+        answers: [
+          {
+            image: 'https://image-name.com',
+            answer: 'Answer 1'
+          },
+          {
+            answer: 'Answer 2'
+          }
+        ]
+      })
+      .expect(403)
   })
 })
