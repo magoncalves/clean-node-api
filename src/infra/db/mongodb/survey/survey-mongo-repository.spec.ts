@@ -22,23 +22,59 @@ describe('Survey Mongo Repository', () => {
     await surveyCollection.deleteMany({})
   })
 
-  it('should add a survey on success', async () => {
-    const sut = makeSut()
-    await sut.add({
-      question: 'any_question',
-      answers: [
+  describe('add', () => {
+    it('should add a survey on success', async () => {
+      const sut = makeSut()
+      await sut.add({
+        question: 'any_question',
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer'
+          },
+          {
+            answer: 'another_answer'
+          }
+        ],
+        date: new Date()
+      })
+
+      const survey = await surveyCollection.findOne({
+        question: 'any_question'
+      })
+
+      expect(survey).toBeTruthy()
+    })
+  })
+
+  describe('loadAll', () => {
+    it('should load all surveys on success', async () => {
+      await surveyCollection.insertMany([
         {
-          image: 'any_image',
-          answer: 'any_answer'
+          question: 'any_question',
+          answers: [
+            {
+              image: 'any_image',
+              answer: 'any_answer'
+            }
+          ],
+          date: new Date()
         },
         {
-          answer: 'another_answer'
+          question: 'another_question',
+          answers: [
+            {
+              image: 'another_image',
+              answer: 'another_answer'
+            }
+          ],
+          date: new Date()
         }
-      ],
-      date: new Date()
-    })
+      ])
+      const sut = makeSut()
+      const surveys = await sut.loadAll()
 
-    const survey = await surveyCollection.findOne({ question: 'any_question' })
-    expect(survey).toBeTruthy()
+      expect(surveys.length).toEqual(2)
+    })
   })
 })
