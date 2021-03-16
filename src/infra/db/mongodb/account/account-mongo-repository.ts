@@ -5,7 +5,7 @@ import {
   AccountModel,
   AddAccountModel,
   AddAccountRepository
-} from '@/data/use-cases/add-account/db-add-account-protocols'
+} from '@/data/use-cases/account/add-account/db-add-account-protocols'
 import { MongoHelper } from '../helpers/mongo-helper'
 
 export class AccountMongoRepository

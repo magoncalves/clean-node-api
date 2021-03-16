@@ -11,7 +11,7 @@ import {
   Validation
 } from './login-controller-protocols'
 import { LoginController } from './login-controller'
-import { AuthenticationModel } from '@/domain/use-cases/authentication'
+import { AuthenticationModel } from '@/domain/use-cases/account/authentication'
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
