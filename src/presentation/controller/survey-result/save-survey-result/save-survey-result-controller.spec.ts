@@ -11,7 +11,7 @@ import { SaveSurveyResultController } from './save-survey-result-controller'
 import MockDate from 'mockdate'
 import {
   SaveSurveyResult,
-  SaveSurveyResultModel
+  SaveSurveyResultParams
 } from '@/domain/use-cases/survey-result/save-survey-result'
 import { SurveyResultModel } from '@/domain/models/survey-result'
 
@@ -57,7 +57,7 @@ const makeLoadSurveyById = (): LoadSurveyById => {
 
 const makeSaveSurveyResult = (): SaveSurveyResult => {
   class SaveSurveyResultStub implements SaveSurveyResult {
-    async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
+    async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
       return await new Promise((resolve) => resolve(makeFakeSurveyResult()))
     }
   }

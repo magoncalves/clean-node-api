@@ -11,11 +11,11 @@ import {
   Validation
 } from './login-controller-protocols'
 import { LoginController } from './login-controller'
-import { AuthenticationModel } from '@/domain/use-cases/account/authentication'
+import { AuthenticationParams } from '@/domain/use-cases/account/authentication'
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return await new Promise((resolve) => resolve('any_token'))
     }
   }

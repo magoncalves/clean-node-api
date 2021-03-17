@@ -5,7 +5,7 @@ import {
 } from '@/presentation/errors'
 import {
   AddAccount,
-  AddAccountModel,
+  AddAccountParams,
   AccountModel,
   Validation
 } from './signup-controller-protocols'
@@ -19,7 +19,7 @@ import {
 } from '@/presentation/helpers/http/http-helper'
 import {
   Authentication,
-  AuthenticationModel
+  AuthenticationParams
 } from '../login/login-controller-protocols'
 
 type SutTypes = {
@@ -38,7 +38,7 @@ const makeFakeAccount = (): AccountModel | null => ({
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel | null> {
+    async add (account: AddAccountParams): Promise<AccountModel | null> {
       return await new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -65,7 +65,7 @@ const makeFakeRequest = (): HttpRequest => ({
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationParams): Promise<string> {
       return await new Promise((resolve) => resolve('any_token'))
     }
   }

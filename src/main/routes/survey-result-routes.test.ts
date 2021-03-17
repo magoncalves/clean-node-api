@@ -5,7 +5,7 @@ import { hash } from 'bcrypt'
 import { sign } from 'jsonwebtoken'
 import { Collection } from 'mongodb'
 import env from '../config/env'
-import { AddSurveyModel } from '@/domain/use-cases/survey/add-survey'
+import { AddSurveyParams } from '@/domain/use-cases/survey/add-survey'
 
 let surveyCollection: Collection
 let accountCollection: Collection
@@ -34,7 +34,7 @@ const makeAccessToken = async (): Promise<string> => {
   return accessToken
 }
 
-const makeSurveyRequest = (): AddSurveyModel => ({
+const makeSurveyRequest = (): AddSurveyParams => ({
   question: 'Question',
   answers: [
     {
