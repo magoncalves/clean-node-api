@@ -9,7 +9,7 @@ import { UpdateAccessTokenRepository } from '../protocols/db/account/update-acce
 export const mockAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
     async add (account: AddAccountParams): Promise<AccountModel | null> {
-      return await new Promise((resolve) => resolve(mockAccountModel()))
+      return await Promise.resolve(mockAccountModel())
     }
   }
 
@@ -20,7 +20,7 @@ export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository
   class LoadAccountByEmailRepositoryStub
   implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel | null> {
-      return await new Promise((resolve) => resolve(mockAccountModel()))
+      return await Promise.resolve(mockAccountModel())
     }
   }
   return new LoadAccountByEmailRepositoryStub()
@@ -33,7 +33,7 @@ export const mockLoadAccountByTokenRepository = (): LoadAccountByTokenRepository
       token: string,
       role?: string
     ): Promise<AccountModel | null> {
-      return await new Promise((resolve) => resolve(mockAccountModel()))
+      return await Promise.resolve(mockAccountModel())
     }
   }
 
@@ -43,7 +43,7 @@ export const mockLoadAccountByTokenRepository = (): LoadAccountByTokenRepository
 export const mockUpdateAccessTokenRepository = (): UpdateAccessTokenRepository => {
   class UpdateAccessTokenRepositoryStub implements UpdateAccessTokenRepository {
     async updateAccessToken (id: string, token: string): Promise<void> {
-      return await new Promise((resolve) => resolve())
+      return await Promise.resolve()
     }
   }
   return new UpdateAccessTokenRepositoryStub()
