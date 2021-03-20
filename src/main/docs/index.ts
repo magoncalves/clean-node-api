@@ -5,15 +5,17 @@ import {
   serverError,
   forbidden
 } from './components'
-import { loginPath, signupPath, surveyPath } from './paths'
+import { loginPath, signupPath, surveyPath, surveyResultPath } from './paths'
 import {
   accountSchema,
   addSurveyParamsSchema,
   apiKeyAuthSchema,
   errorSchema,
   loginParamsSchema,
+  saveSurveyParamsSchema,
   signupParamsSchema,
   surveyAnswerSchema,
+  surveyResultSchema,
   surveySchema,
   surveysSchema
 } from './schemas'
@@ -45,7 +47,8 @@ export default {
   paths: {
     '/login': loginPath,
     '/signup': signupPath,
-    '/surveys': surveyPath
+    '/surveys': surveyPath,
+    '/surveys/{surveyId/results': surveyResultPath
   },
   schemas: {
     account: accountSchema,
@@ -55,7 +58,9 @@ export default {
     surveyAnswer: surveyAnswerSchema,
     survey: surveySchema,
     surveys: surveysSchema,
-    addSurveyParams: addSurveyParamsSchema
+    surveyResult: surveyResultSchema,
+    addSurveyParams: addSurveyParamsSchema,
+    saveSurveyParams: saveSurveyParamsSchema
   },
   components: {
     securitySchemes: {
