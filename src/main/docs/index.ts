@@ -8,6 +8,7 @@ import {
 import { loginPath, signupPath, surveyPath } from './paths'
 import {
   accountSchema,
+  addSurveyParamsSchema,
   apiKeyAuthSchema,
   errorSchema,
   loginParamsSchema,
@@ -53,7 +54,8 @@ export default {
     error: errorSchema,
     surveyAnswer: surveyAnswerSchema,
     survey: surveySchema,
-    surveys: surveysSchema
+    surveys: surveysSchema,
+    addSurveyParams: addSurveyParamsSchema
   },
   components: {
     securitySchemes: {
