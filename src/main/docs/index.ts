@@ -5,12 +5,13 @@ import {
   serverError,
   forbidden
 } from './components'
-import { loginPath, surveyPath } from './paths'
+import { loginPath, signupPath, surveyPath } from './paths'
 import {
   accountSchema,
   apiKeyAuthSchema,
   errorSchema,
   loginParamsSchema,
+  signupParamsSchema,
   surveyAnswerSchema,
   surveySchema,
   surveysSchema
@@ -42,11 +43,13 @@ export default {
   ],
   paths: {
     '/login': loginPath,
+    '/signup': signupPath,
     '/surveys': surveyPath
   },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
+    signupParams: signupParamsSchema,
     error: errorSchema,
     surveyAnswer: surveyAnswerSchema,
     survey: surveySchema,
