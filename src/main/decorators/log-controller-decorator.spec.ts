@@ -34,7 +34,7 @@ const mockRequest = (): HttpRequest => ({
   }
 })
 
-const makeFakeServerError = (): HttpResponse => {
+const mockServerError = (): HttpResponse => {
   const fakeError = new Error()
   fakeError.stack = 'any_stack'
   return serverError(fakeError)
@@ -77,7 +77,7 @@ describe('LogController Decorator', () => {
 
     jest
       .spyOn(controllerStub, 'handle')
-      .mockResolvedValueOnce(makeFakeServerError())
+      .mockResolvedValueOnce(mockServerError())
 
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
 
