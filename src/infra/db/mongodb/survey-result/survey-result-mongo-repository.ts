@@ -7,9 +7,7 @@ import { ObjectId } from 'mongodb'
 
 export class SurveyResultMongoRepository
 implements SaveSurveyResultRepository, LoadSurveyResultRepository {
-  async save (
-    surveyResultData: SaveSurveyResultParams
-  ): Promise<SurveyResultModel> {
+  async save (surveyResultData: SaveSurveyResultParams): Promise<void> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     )
@@ -28,9 +26,6 @@ implements SaveSurveyResultRepository, LoadSurveyResultRepository {
         upsert: true
       }
     )
-
-    const surveyResult = await this.loadBySurveyId(surveyResultData.surveyId)
-    return surveyResult
   }
 
   async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
