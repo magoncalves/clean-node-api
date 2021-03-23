@@ -1,3 +1,4 @@
+import { AuthenticationModel } from '@/domain/models/authentication'
 import {
   AuthenticationParams,
   HashComparer,
@@ -15,7 +16,9 @@ export class DbAuthentication implements Authentication {
     private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
   ) {}
 
-  async auth (authentication: AuthenticationParams): Promise<string | null> {
+  async auth (
+    authentication: AuthenticationParams
+  ): Promise<AuthenticationModel | null> {
     const account = await this.loadAccountByEmailRepository.loadByEmail(
       authentication.email
     )
@@ -31,7 +34,7 @@ export class DbAuthentication implements Authentication {
           account.id,
           accessToken
         )
-        return accessToken
+        return { accessToken, name: account.name }
       }
     }
 
