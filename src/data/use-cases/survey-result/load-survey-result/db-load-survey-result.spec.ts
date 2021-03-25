@@ -45,9 +45,12 @@ describe('DbLoadSurveyResult Usecase', () => {
       'loadBySurveyId'
     )
 
-    await sut.load('any_survey_id')
+    await sut.load('any_survey_id', 'any_account_id')
 
-    expect(loadBySurveyIdSpy).toHaveBeenCalledWith('any_survey_id')
+    expect(loadBySurveyIdSpy).toHaveBeenCalledWith(
+      'any_survey_id',
+      'any_account_id'
+    )
   })
 
   it('should throw if LoadSurveyResultRepository throws', async () => {
@@ -56,7 +59,7 @@ describe('DbLoadSurveyResult Usecase', () => {
       .spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
       .mockRejectedValueOnce(new Error())
 
-    const loadPromise = sut.load('any_survey_id')
+    const loadPromise = sut.load('any_survey_id', 'any_account_id')
 
     await expect(loadPromise).rejects.toThrow()
   })
@@ -72,7 +75,7 @@ describe('DbLoadSurveyResult Usecase', () => {
       .mockResolvedValueOnce(null)
     const loadSurveySpy = jest.spyOn(loadSurveyByIdRepositoryStub, 'loadById')
 
-    await sut.load('any_survey_id')
+    await sut.load('any_survey_id', 'any_account_id')
 
     expect(loadSurveySpy).toHaveBeenCalledWith('any_survey_id')
   })
@@ -84,7 +87,7 @@ describe('DbLoadSurveyResult Usecase', () => {
       .mockResolvedValueOnce(null)
 
     const originalSurveyResult = mockSurveyResultModel()
-    const surveyResult = await sut.load('any_survey_id')
+    const surveyResult = await sut.load('any_survey_id', 'any_account_id')
 
     expect(surveyResult).toEqual({
       surveyId: 'any_id',
@@ -95,6 +98,7 @@ describe('DbLoadSurveyResult Usecase', () => {
           ...originalSurveyResult.answers[0],
           count: 0,
           percent: 0,
+          isCurrentAccountAnswer: false,
           image: expect.any(String)
         }
       ]
@@ -104,7 +108,7 @@ describe('DbLoadSurveyResult Usecase', () => {
   it('should return SurveyResultModel on success', async () => {
     const { sut } = makeSut()
 
-    const surveyResult = await sut.load('any_survey_id')
+    const surveyResult = await sut.load('any_survey_id', 'any_account_id')
 
     expect(surveyResult).toEqual(mockSurveyResultModel())
   })

@@ -28,7 +28,10 @@ implements SaveSurveyResultRepository, LoadSurveyResultRepository {
     )
   }
 
-  async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
+  async loadBySurveyId (
+    surveyId: string,
+    accountId: string
+  ): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     )
