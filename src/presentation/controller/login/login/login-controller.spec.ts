@@ -5,19 +5,13 @@ import {
   serverError,
   unauthorized
 } from '@/presentation/helpers/http/http-helper'
-import {
-  HttpRequest,
-  Authentication,
-  Validation
-} from './login-controller-protocols'
+import { Authentication, Validation } from './login-controller-protocols'
 import { LoginController } from './login-controller'
 import { mockAuthentication, mockValidation } from '@/presentation/test'
 
-const mockRequest = (): HttpRequest => ({
-  body: {
-    email: 'any_email@email.com',
-    password: 'any_password'
-  }
+const mockRequest = (): LoginController.Request => ({
+  email: 'any_email@email.com',
+  password: 'any_password'
 })
 
 type SutTypes = {
@@ -81,9 +75,9 @@ describe('Login Controller', () => {
   it('should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
     const validateSpy = jest.spyOn(validationStub, 'validate')
-    const httpRequest = mockRequest()
-    await sut.handle(httpRequest)
-    expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+    const request = mockRequest()
+    await sut.handle(request)
+    expect(validateSpy).toHaveBeenCalledWith(request)
   })
 
   it('should return 400 if Validation returns an error', async () => {

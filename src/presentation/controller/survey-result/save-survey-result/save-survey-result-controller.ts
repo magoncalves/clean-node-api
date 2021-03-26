@@ -8,7 +8,6 @@ import {
 } from '@/presentation/helpers/http/http-helper'
 import {
   Controller,
-  HttpRequest,
   HttpResponse
 } from './save-survey-result-controller-protocols'
 
@@ -18,11 +17,11 @@ export class SaveSurveyResultController implements Controller {
     private readonly saveSurveyResult: SaveSurveyResult
   ) {}
 
-  async handle (request: HttpRequest): Promise<HttpResponse> {
+  async handle (
+    request: SaveSurveyResultController.Request
+  ): Promise<HttpResponse> {
     try {
-      const { surveyId } = request.params
-      const { answer } = request.body
-      const { accountId } = request
+      const { accountId, surveyId, answer } = request
       const survey = await this.loadSurveyById.loadById(surveyId)
 
       if (!survey) {
@@ -44,5 +43,13 @@ export class SaveSurveyResultController implements Controller {
     } catch (error) {
       return serverError(error)
     }
+  }
+}
+
+export namespace SaveSurveyResultController {
+  export type Request = {
+    surveyId: string
+    answer: string
+    accountId: string
   }
 }

@@ -5,20 +5,15 @@ import {
   ok,
   serverError
 } from '@/presentation/helpers/http/http-helper'
-import { HttpRequest } from '@/presentation/protocols'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import MockDate from 'mockdate'
 import { SaveSurveyResult } from '@/domain/use-cases/survey-result/save-survey-result'
 import { mockSurveyResultModel } from '@/domain/test'
 import { mockLoadSurveyById, mockSaveSurveyResult } from '@/presentation/test'
 
-const mockRequest = (): HttpRequest => ({
-  params: {
-    surveyId: 'any_survey_id'
-  },
-  body: {
-    answer: 'any_answer'
-  },
+const mockRequest = (): SaveSurveyResultController.Request => ({
+  surveyId: 'any_survey_id',
+  answer: 'any_answer',
   accountId: 'any_account_id'
 })
 
@@ -84,15 +79,12 @@ describe('SaveSurveyResult Controller', () => {
   it('should return 403 if an invalid answer is provided', async () => {
     const { sut } = makeSut()
     const originalRequest = mockRequest()
-    const httpRequest = {
+    const request = {
       ...originalRequest,
-      body: {
-        ...originalRequest.body,
-        answer: 'wrong_answer'
-      }
+      answer: 'wrong_answer'
     }
 
-    const httoResponse = await sut.handle(httpRequest)
+    const httoResponse = await sut.handle(request)
 
     expect(httoResponse).toEqual(forbidden(new InvalidParamError('answer')))
   })
