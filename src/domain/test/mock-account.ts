@@ -1,5 +1,5 @@
 import { AddAccount } from '@/data/use-cases/account/add-account/db-add-account-protocols'
-import { AuthenticationParams } from '@/data/use-cases/account/authentication/db-authentication-protocols'
+import { Authentication } from '@/data/use-cases/account/authentication/db-authentication-protocols'
 import { AccountModel } from '@/presentation/middlewares/auth-middleware-protocols'
 
 export const mockAddAccountParams = (): AddAccount.Params => ({
@@ -13,7 +13,7 @@ export const mockAccountModel = (): AccountModel => ({
   id: 'any_id'
 })
 
-export const mockAuthentication = (): AuthenticationParams => ({
+export const mockAuthentication = (): Authentication.Params => ({
   email: 'any_email@email.com',
   password: 'any_password'
 })
