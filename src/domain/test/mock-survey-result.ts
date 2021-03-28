@@ -1,16 +1,14 @@
-import {
-  SaveSurveyResultParams,
-  SurveyResultModel
-} from '@/data/use-cases/survey-result/save-survey-result/db-save-survey-result-protocols'
+import { LoadSurveyResult } from '@/data/use-cases/survey-result/load-survey-result/db-load-survey-result-protocols'
+import { SaveSurveyResult } from '@/data/use-cases/survey-result/save-survey-result/db-save-survey-result-protocols'
 
-export const mockSaveSurveyResultParams = (): SaveSurveyResultParams => ({
+export const mockSaveSurveyResultParams = (): SaveSurveyResult.Params => ({
   accountId: 'any_account_id',
   surveyId: 'any_survey_id',
   answer: 'any_answer',
   date: new Date()
 })
 
-export const mockSurveyResultModel = (): SurveyResultModel => ({
+export const mockSurveyResultModel = (): LoadSurveyResult.Result => ({
   surveyId: 'any_survey_id',
   question: 'any_question',
   answers: [
