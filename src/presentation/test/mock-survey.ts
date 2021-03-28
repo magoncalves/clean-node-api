@@ -6,7 +6,7 @@ import { LoadSurveyById } from '@/domain/use-cases/survey/load-survey-by-id'
 
 export const mockLoadSurveys = (): LoadSurveys => {
   class LoadSurveysStub implements LoadSurveys {
-    async load (accountId: string): Promise<SurveyModel[]> {
+    async load (accountId: string): Promise<LoadSurveys.Result> {
       return await Promise.resolve(mockSurveyModels())
     }
   }

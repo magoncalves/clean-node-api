@@ -1,5 +1,8 @@
 import { AddSurvey } from '@/data/use-cases/survey/add-survey/db-add-survey-protocols'
-import { SurveyModel } from '@/presentation/controller/survey/load-surveys/load-surveys-controller-protocols'
+import {
+  LoadSurveys,
+  SurveyModel
+} from '@/presentation/controller/survey/load-surveys/load-surveys-controller-protocols'
 
 export const mockSurveyModel = (): SurveyModel => ({
   id: 'any_id',
@@ -13,7 +16,7 @@ export const mockSurveyModel = (): SurveyModel => ({
   date: new Date()
 })
 
-export const mockSurveyModels = (): SurveyModel[] => [
+export const mockSurveyModels = (): LoadSurveys.Result => [
   {
     id: 'any_id',
     question: 'any_question',
