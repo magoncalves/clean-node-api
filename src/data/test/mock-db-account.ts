@@ -33,7 +33,7 @@ export const mockLoadAccountByTokenRepository = (): LoadAccountByTokenRepository
     async loadByToken (
       token: string,
       role?: string
-    ): Promise<AccountModel | null> {
+    ): Promise<LoadAccountByTokenRepository.Result> {
       return await Promise.resolve(mockAccountModel())
     }
   }
