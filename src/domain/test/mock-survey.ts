@@ -1,4 +1,4 @@
-import { AddSurveyParams } from '@/data/use-cases/survey/add-survey/db-add-survey-protocols'
+import { AddSurvey } from '@/data/use-cases/survey/add-survey/db-add-survey-protocols'
 import { SurveyModel } from '@/presentation/controller/survey/load-surveys/load-surveys-controller-protocols'
 
 export const mockSurveyModel = (): SurveyModel => ({
@@ -38,7 +38,7 @@ export const mockSurveyModels = (): SurveyModel[] => [
   }
 ]
 
-export const mockAddSurveyParams = (): AddSurveyParams => ({
+export const mockAddSurveyParams = (): AddSurvey.Params => ({
   question: 'any_question',
   answers: [
     {

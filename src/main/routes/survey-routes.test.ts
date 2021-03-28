@@ -5,7 +5,7 @@ import request from 'supertest'
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import app from '../config/app'
 import env from '../config/env'
-import { AddSurveyParams } from '@/domain/use-cases/survey/add-survey'
+import { AddSurvey } from '@/domain/use-cases/survey/add-survey'
 
 let surveyCollection: Collection
 let accountCollection: Collection
@@ -34,7 +34,7 @@ const makeAccessToken = async (): Promise<string> => {
   return accessToken
 }
 
-const makeSurveyRequest = (): AddSurveyParams => ({
+const makeSurveyRequest = (): AddSurvey.Params => ({
   question: 'Question',
   answers: [
     {
