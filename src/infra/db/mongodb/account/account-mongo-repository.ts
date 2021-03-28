@@ -1,10 +1,7 @@
 import { LoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository'
 import { LoadAccountByTokenRepository } from '@/data/protocols/db/account/load-account-by-token-repository'
 import { UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-access-token-repository'
-import {
-  AccountModel,
-  AddAccountRepository
-} from '@/data/use-cases/account/add-account/db-add-account-protocols'
+import { AddAccountRepository } from '@/data/use-cases/account/add-account/db-add-account-protocols'
 import { MongoHelper } from '../helpers/mongo-helper'
 
 export class AccountMongoRepository
@@ -22,7 +19,9 @@ implements
     return MongoHelper.map(result.ops[0])
   }
 
-  async loadByEmail (email: string): Promise<AccountModel | null> {
+  async loadByEmail (
+    email: string
+  ): Promise<LoadAccountByEmailRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const account = await accountCollection.findOne({ email })
 
